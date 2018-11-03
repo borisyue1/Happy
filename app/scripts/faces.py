@@ -15,4 +15,3 @@ def get_emotions(path):
 	
 	faces = CF.face.detect(path, attributes="emotion")
 	return faces[0]["faceAttributes"]["emotion"]
-

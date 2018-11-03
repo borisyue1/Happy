@@ -1,8 +1,13 @@
-import http.client, urllib.request, urllib.error, json
+import http.client, urllib.request, urllib.error, json, os
 
 speech_key = '1613da9943af4aaaaad4735e5e3a57f7'
 text_key = '473f753648de4199a0eb24b38d7b884b'
 
+def webm_to_wav(path):
+  from_video_path = path
+  audio_ext = "wav"
+  to_audio_path = "temp.wav"
+  os.system('ffmpeg -i {} -f {} -ab 192000 -vn {}'.format(from_video_path, audio_ext, to_audio_path))
 
 def speech_to_text(input_file='../test.wav'):
   with open(input_file, mode='rb') as file:
@@ -42,6 +47,5 @@ def sentiment(text):
   except Exception as e:
       print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
-
-text = speech_to_text()
-print("Sentiment Score:", sentiment(text))
+def wav_to_sentiment(path='../test.wav'):
+  return sentiment(speech_to_text(path))
