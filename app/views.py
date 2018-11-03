@@ -28,3 +28,9 @@ def new_entry():
 		filtered_video_sentiments[category] = math.mean(filtered_video_sentiments[category])
 	audio_sentiment = wav_to_sentiment(WEBM_PATH)
 	return render_template("index.html")
+
+@app.route('/chart', methods=["GET"])
+def chart():
+    labels = ["Contempt","Happiness","Neutral","Fear","Sadness","Disgust","Surprise","Anger"]
+    values = [10,9,8,7,6,4,7,8]
+    return render_template('chart.html', values=values, labels=labels)
