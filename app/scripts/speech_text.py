@@ -26,7 +26,7 @@ def speech_to_text(input_file='../test.wav'):
       conn.close()
       return text_data['DisplayText']
   except Exception as e:
-      print("Speech to text error")
+      raise Exception("Speech to text error")
 
 def sentiment(text):
   text_headers = {
@@ -45,7 +45,7 @@ def sentiment(text):
       conn.close()
       return sentiment['documents'][0]["score"]
   except Exception as e:
-      print("Audio sentiment error")
+      raise Exception("Audio sentiment error")
 
 def wav_to_sentiment(path='../test.wav'):
   webm_to_wav(path)
