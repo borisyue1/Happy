@@ -1,0 +1,56 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: arial;
+}
+
+#leftplacement{
+    float:left;
+    padding:10px;
+    
+}
+
+#rightplacement{
+    float:left;
+    padding:10px;
+}
+
+#fullpage {
+	height: 100vh;
+}
+
+#fullpage section {
+	height: 50vh;
+}
+
+#fullpage section h1 {
+	margin: 0;
+	padding: 0;
+	text-align: right;
+	line-height: 10em;
+	font-size: 10em;
+}
+
+#fullpage section:nth-child(1) {
+	background: #FA8072;
+}
+
+#fullpage section:nth-child(2) {
+	background: #EA0A0B;
+}
+
+#fullpage section:nth-child(3) {
+	background: #FF9D3A;
+}
+
+#fullpage section:nth-child(4) {
+	background: #61B9B0;
+}
+
+#fullpage section:nth-child(5) {
+	background: #9098AD;
+}
+
+#fullpage section:nth-child(6) {
+	background: #DEB25B;
+}
