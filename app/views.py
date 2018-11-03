@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, flash, redirect, request
 import json
-from app.static.scripts import faces
+from scripts import faces
 
 @app.route('/')
 @app.route('/index')
