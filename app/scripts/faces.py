@@ -8,6 +8,7 @@ BASE_URL = 'https://westus.api.cognitive.microsoft.com/face/v1.0/'
 CF.BaseUrl.set(BASE_URL)
 
 def get_frames(path, output_path="app/recordings/", fps=1/2):
+	print("error")
 	os.system("ffmpeg -y -i {} -vf fps={} {}thumb%04d.jpg -hide_banner".format(path, fps, output_path))
 
 def get_emotions(path):

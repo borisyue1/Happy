@@ -2,7 +2,7 @@ import http.client, urllib.request, urllib.error, json, os
 
 speech_key = '1613da9943af4aaaaad4735e5e3a57f7'
 text_key = '473f753648de4199a0eb24b38d7b884b'
-WAV_PATH = "app/recordings/temp.wav"
+WAV_PATH = "temp/temp.wav"
 
 def webm_to_wav(path):
   from_video_path = path
