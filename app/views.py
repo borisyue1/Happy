@@ -51,7 +51,7 @@ def result():
 			filtered_video_sentiments[category] = int(10 * mean(filtered_video_sentiments[category]))
 
 		print("Getting audio sentiment")
-		audio_sentiment = wav_to_sentiment(WEBM_PATH)
+		audio_sentiment = wav_to_sentiment(latest_video_path)
 		print("Video:", filtered_video_sentiments)
 		print("Audio:", audio_sentiment)
 
@@ -65,7 +65,6 @@ def result():
 			filtered_video_sentiments["anger"],
 			audio_sentiment]
 		if latest_video_path not in historicals_df.index:
-			
 			historicals_df.loc[latest_video_path] = new_row
 			historicals_df.to_csv(HISTORICALS_PATH)
 

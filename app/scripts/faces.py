@@ -9,7 +9,7 @@ CF.BaseUrl.set(BASE_URL)
 
 def get_frames(path, output_path="app/recordings/", fps=1/2):
 	print("error")
-	os.system("ffmpeg -y -i {} -vf fps={} {}thumb%04d.jpg -hide_banner".format(path, fps, output_path))
+	# os.system("ffmpeg -y -i {} -vf fps={} {}thumb%04d.jpg -hide_banner".format(path, fps, output_path))
 
 def get_emotions(path):
 	#Path can either be a link or 
