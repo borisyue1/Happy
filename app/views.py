@@ -78,7 +78,7 @@ def result():
 	if max_feel == 8:
 		max_feel = 2
 
-	return render_template("chart.html", values=new_row[:-1], labels=LABELS, result=result_lst[max_feel])
+	return render_template("chart.html", values=new_row[:-1], labels=LABELS, result=result_lst[max_feel], voice_sent=audio_sentiment)
 
 
 ALLOWED_EXTENSIONS = ['webm']
