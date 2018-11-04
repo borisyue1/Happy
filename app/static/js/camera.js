@@ -20,6 +20,15 @@ var chunks = [];
 var count = 0;
 
 
+function getDateTime(){
+	var date = new Date();
+	var datetime_str=date.getFullYear()+('0'+(date.getMonth()+1)).substr(-2,2)+('0'+date.getDate()).substr(-2,2);
+
+	datetime_str+=('0'+date.getHours()).substr(-2,2)+('0'+date.getMinutes()).substr(-2,2)+('0'+date.getSeconds()).substr(-2,2);
+	return datetime_str;
+}
+
+
 function onBtnRecordClicked (){
 	if (typeof MediaRecorder === 'undefined' || !navigator.mediaDevices.getUserMedia) {
 		alert('MediaRecorder or navigator.mediaDevices.getUserMedia is NOT supported on your browser, use Firefox or Chrome instead.');
@@ -78,21 +87,40 @@ function onBtnRecordClicked (){
 
 			mediaRecorder.onstop = function(){
 				log('Stopped  & state = ' + mediaRecorder.state);
-
+				
 				var blob = new Blob(chunks, {type: "video/webm"});
-				chunks = [];
-
 				var videoURL = window.URL.createObjectURL(blob);
+
+				chunks = [];
 
 				downloadLink.href = videoURL;
 				videoElement.src = videoURL;
 				downloadLink.innerHTML = 'Download video file';
 
-				var rand =  Math.floor((Math.random() * 10000000));
-				var name  = "video_"+rand+".webm" ;
+				//var rand =  Math.floor((Math.random() * 10000000));
+				var name  = "video_"+getDateTime()+".webm" ;
 
 				downloadLink.setAttribute( "download", name);
 				downloadLink.setAttribute( "name", name);
+
+				var fd = new FormData();
+				fd.append('filename', name);
+				fd.append('file', blob);
+				console.log(fd);
+
+				console.log("Start to post");
+
+				$.ajax({
+					method: 'POST',
+				    type: 'POST',
+				    url: '/upload',
+				    data: fd,
+				    processData: false,
+				    contentType: false,
+				    mimeTypes: 'multipart/form-data'
+				}).done(function(msg) {
+				    alert( "Data Saved: " + msg );
+				});
 			};
 
 			mediaRecorder.onpause = function(){
