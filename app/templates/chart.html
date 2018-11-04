@@ -28,7 +28,7 @@
       <div class="col-3">
       </div>
       <div class="col-6">
-        <div class="resalt_header"> You seem: </div>
+        <div class="result_header"> You seem: </div>
 
         <span class="result">{{ result }}</span>
 
@@ -84,7 +84,7 @@
       showLabelBackdrop: false
     },
     pointLabels: {
-      fontSize: 18
+      fontSize: 24
     }
   }, legend: false
 
@@ -110,7 +110,16 @@
     ],
       datasets: [
         {
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          backgroundColor: [
+        "#000000",
+        "#ffa200",
+        "#5f84a3",
+        "#876487", 
+        "#2839a0",
+        "#00ff36",
+        "#f0ff00",
+        "#ff0000"
+    ],
           data: [0.00,3.27,4.36,0.00,0.00,0.55,0.00,0.09]
         }
       ]
@@ -121,6 +130,10 @@
         text: 'Emotion Distribution',
         fontSize: 18
       }
+    }, 
+
+    labels: {
+      fontSize: 18
     }
 });
 
@@ -138,6 +151,9 @@
       </div>
       <div class="col-6">
         <a href="/"><button class="btn btn-success btn-lg"><i class="fas fa-grin-tongue"></i> Try Again!</button></a>
+
+
+        <br><br>
       </div>
     </div>
 
