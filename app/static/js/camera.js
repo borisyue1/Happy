@@ -156,14 +156,17 @@ function onBtnStopClicked(){
 }
 
 function onPauseResumeClicked(){
-	if(pauseResBtn.textContent === "Pause"){
+
+
+	
+	if(pauseResBtn.textContent === "<i class=\"fa fa-pause\"></i> Pause"){
 		console.log("pause");
-		pauseResBtn.textContent = "Resume";
+		pauseResBtn.textContent = "<i class=\"fa fa-play\"></i> Resume";
 		mediaRecorder.pause();
 		stopBtn.disabled = true;
 	}else{
 		console.log("resume");
-		pauseResBtn.textContent = "Pause";
+		pauseResBtn.textContent = "<i class=\"fa fa-pause\"></i> Pause";
 		mediaRecorder.resume();
 		stopBtn.disabled = false;
 	}
