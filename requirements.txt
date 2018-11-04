@@ -1,3 +1,4 @@
 flask
 cognitive_faces
 glob2
+pandas
