@@ -24,8 +24,19 @@
     </div>
 
 
-    <br>
+    <div class="row">
+      <div class="col-3">
+      </div>
+      <div class="col-6">
+        <div class="resalt_header"> You seem: </div>
 
+        <span class="result">{{ result }}</span>
+
+        <br><br>
+
+        
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-3">
@@ -33,62 +44,105 @@
       
       <div class="col-6">
           <canvas id="chart" width="600" height="400"></canvas>
+          <br><br>
+          <canvas id="donut" width="600" height="400"></canvas>
+
+
             <script>
-               // bar chart data
-               var barData = {
-               labels : [{% for item in labels %}
+               steps = 10
+               max = 10
+
+               new Chart(document.getElementById("chart"), {
+                  type: 'radar',
+                  data: {
+                    labels: [{% for item in labels %}
                               "{{item}}",
                           {% endfor %}],
-               datasets : [
+                    datasets: [
                   {
-                        fillColor: "rgba(59, 126, 161, 0.2)",
-                        strokeColor: "rgba(0, 50, 98, 1)",
-                        pointColor: "rgba(0, 50, 98, 1)",
+                        backgroundColor: "rgba(179,181,198,0.2)",
+          borderColor: "rgba(179,181,198,1)",
+          pointBorderColor: "#fff",
+          pointBackgroundColor: "rgba(179,181,198,1)",
 
                         data : [{% for item in values %}
                                   {{item}},
                                 {% endfor %}]
                   }
                   ]
-               }
- 
-               // get bar chart canvas
-               var mychart = document.getElementById("chart").getContext("2d");
-             
-               steps = 10
-               max = 10
-               // draw bar chart
-               new Chart(mychart).Radar(barData, {
-                    backgroundColor: 'rgba(251, 85, 85, 0.4)',
-                    scaleOverride: true,
-                    scaleSteps: steps,
-                    scaleStepWidth: Math.ceil(max / steps),
-                    scaleStartValue: 0,
-                    scaleShowVerticalLines: true,
-                    scaleShowGridLines : true,
-                    barShowStroke : true,
-                    scaleShowLabels: true,
 
+                  },
+                  options: {
+                    
 
-               }  );
+                    scale: {
+    ticks: {
+      beginAtZero: true,
+      min: 0,
+      max: 10,
+      stepSize: 1,
+      showLabelBackdrop: false
+    },
+    pointLabels: {
+      fontSize: 18
+    }
+  }, legend: false
+
+                  }
+
+});
      
             </script>
+
+            <script> 
+              new Chart(document.getElementById("donut"), {
+    type: 'doughnut',
+    data: {
+      labels: [
+        "Contempt",
+        "Happiness",
+        "Neutral",
+        "Fear", 
+        "Sadness",
+        "Disgust",
+        "Surprise",
+        "Anger"
+    ],
+      datasets: [
+        {
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [0.00,3.27,4.36,0.00,0.00,0.55,0.00,0.09]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Emotion Distribution',
+        fontSize: 18
+      }
+    }
+});
+
+
+             </script>
       </div>
     </div>
-    <div class="row">
+    
+  </div>
+
+  <br><br>
+
+  <div class="row">
       <div class="col-3">
       </div>
       <div class="col-6">
-        <div class="result_header"> You seem: </div>
-
-        <span class="result">{{ result }}</span>
-
-        <br><br>
-
         <a href="/"><button class="btn btn-success btn-lg"><i class="fas fa-grin-tongue"></i> Try Again!</button></a>
       </div>
     </div>
-  </div>
+
+
+  
 
     
   </body>
