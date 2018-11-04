@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, flash, redirect, request
 import json
 import glob2
+import os
 from .scripts.faces import get_emotions, get_frames
 from .scripts.speech_text import wav_to_sentiment
 import pandas as pd
@@ -67,3 +68,28 @@ def chart():
     labels = ["Contempt","Happiness","Neutral","Fear","Sadness","Disgust","Surprise","Anger"]
     values = [10,9,8,7,6,4,7,8]
     return render_template('chart.html', values=values, labels=labels)
+
+
+ALLOWED_EXTENSIONS = ['webm']
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        file = request.files['file']
+        filename = request.form['filename']
+
+        app.logger.info("Incomming filename %s", filename)
+
+        if file and allowed_file(filename):
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # TODO: hacky
+            return "/uploads/" + filename
+
+        app.logger.info("File %s uploaded", filename)
+    else:
+    	return "Get method not implemented"
