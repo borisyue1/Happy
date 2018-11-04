@@ -43,10 +43,55 @@
       </div>
       
       <div class="col-6">
+          <canvas id="bar-chart" height="50"></canvas>
+          <br><br>
           <canvas id="chart" width="600" height="400"></canvas>
           <br><br>
           <canvas id="donut" width="600" height="400"></canvas>
 
+
+          <script> 
+            var value = {{voice_sent}};
+            var max = 1;
+
+            var bar_ctx = document.getElementById('bar-chart');
+            var bar_chart = new Chart(bar_ctx, {
+              type: 'horizontalBar',
+              data: {
+                labels: [],
+                datasets: [{
+                  data: [value],
+                  backgroundColor: "rgba(51,230,125,1)"
+                }, {
+                  data: [max - value],
+                  backgroundColor: "lightgrey",
+                }, ]
+              },
+              options: {
+                title: {
+                  display:true,
+                  text:"Voice Sentiment",
+                  fontSize:26
+                },
+                legend: {
+                  display: false
+                },
+                tooltips: {
+                  enabled: false
+                },
+                scales: {
+                  xAxes: [{
+                    display: false,
+                    stacked: true
+                  }],
+                  yAxes: [{
+                    display: false,
+                    stacked: true
+                  }],
+                } // scales
+              } // options
+            });
+          </script>
 
             <script>
                steps = 10
@@ -60,30 +105,38 @@
                           {% endfor %}],
                     datasets: [
                   {
-                    backgroundColor: "rgba(200,0,0,0.2)",
-                    data : [{% for item in values %}
-                              {{item}},
-                            {% endfor %}]
+                        backgroundColor: "rgba(59,126,161,.5)",
+                        borderColor: "#3B7EA1",
+                        pointBorderColor: "#fff",
+                        pointBackgroundColor: "#003262",
+
+                        data : [{% for item in values %}
+                                  {{item}},
+                                {% endfor %}]
                   }
                   ]
 
                   },
                   options: {
-                    
-
+                    title: {
+                      display:true,
+                      text:"Emotion Radar",
+                      fontSize: 26
+                    },
+    
                     scale: {
-    ticks: {
-      beginAtZero: true,
-      min: 0,
-      max: 10,
-      stepSize: 1,
-      showLabelBackdrop: false
-    },
-    pointLabels: {
-      fontSize: 24,
-      fontColor: "#000000"
-    }
-  }, legend: false
+                      ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 10,
+                        stepSize: 1,
+                        showLabelBackdrop: false
+                      },
+                      pointLabels: {
+                        fontSize: 24,
+              
+                      }
+                    }, legend: false
 
                   }
 
@@ -113,9 +166,9 @@
         "#5f84a3",
         "#876487", 
         "#2839a0",
-        "#00ff36",
+        "#baffc9",
         "#f0ff00",
-        "#ff0000"
+        "#ff6b6b"
     ],
           data: [0.00,3.27,4.36,0.00,0.00,0.55,0.00,0.09]
         }
@@ -125,11 +178,11 @@
       title: {
         display: true,
         fontSize: 26,
-        text: 'Emotion Distribution'  
+        text: 'Collective Emotion Distribution'  
         
       },
       legend: {
-        labels: {fontSize: 18}
+        labels: {fontSize: 16}
       }
     }
 
@@ -166,5 +219,3 @@
 
 
 {% endblock %}
-
-
