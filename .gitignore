@@ -113,4 +113,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-./uploads
+uploads
+temp
