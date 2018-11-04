@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, flash, redirect, request
 import json
 import glob2
+import os
 from .scripts.faces import get_emotions, get_frames
 from .scripts.speech_text import wav_to_sentiment
 import pandas as pd
@@ -9,7 +10,8 @@ import pandas as pd
 WEBM_PATH = "uploads/*.webm"
 JPEG_PATH = "temp/*.jpg"
 HISTORICALS_PATH = "historicals.csv"
-historicals_df = pd.read_csv(HISTORICALS_PATH)
+historicals_df = pd.read_csv(HISTORICALS_PATH, index_col=0)
+
 
 
 @app.route('/')
@@ -43,10 +45,9 @@ def new_entry():
 	audio_sentiment = wav_to_sentiment(WEBM_PATH)
 	print("Video:", filtered_video_sentiments)
 	print("Audio:", audio_sentiment)
-
-	if latest_video_path not in historicals_df.path:
-		new_row = [latest_video_path, 
-		filtered_video_sentiments["contempt"],
+	print(latest_video_path not in historicals_df.index)
+	if latest_video_path not in historicals_df.index:
+		new_row = [filtered_video_sentiments["contempt"],
 		filtered_video_sentiments["happiness"],
 		filtered_video_sentiments["neutral"],
 		filtered_video_sentiments["fear"],
@@ -55,7 +56,7 @@ def new_entry():
 		filtered_video_sentiments["surprise"],
 		filtered_video_sentiments["anger"],
 		audio_sentiment]
-		historicals_df.loc[-1] = new_row
+		historicals_df.loc[latest_video_path] = new_row
 		historicals_df.to_csv(HISTORICALS_PATH, index=False)
 
 	return render_template("index.html", video_sentiments=filtered_video_sentiments, audio_sentiment=audio_sentiment)
@@ -69,9 +70,26 @@ def chart():
     return render_template('chart.html', values=values, labels=labels)
 
 
+ALLOWED_EXTENSIONS = ['webm']
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        file = request.files['file']
+        filename = request.form['filename']
 
+        app.logger.info("Incomming filename %s", filename)
 
+        if file and allowed_file(filename):
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # TODO: hacky
+            return "/uploads/" + filename
 
-    
+        app.logger.info("File %s uploaded", filename)
+    else:
+    	return "Get method not implemented"
