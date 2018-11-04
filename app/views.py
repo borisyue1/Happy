@@ -54,14 +54,14 @@ def result():
 	print("Video:", filtered_video_sentiments)
 	print("Audio:", audio_sentiment)
 
-	new_row = [filtered_video_sentiments["contempt"],
-		filtered_video_sentiments["happiness"],
-		filtered_video_sentiments["neutral"],
-		filtered_video_sentiments["fear"],
-		filtered_video_sentiments["sadness"],
-		filtered_video_sentiments["disgust"],
-		filtered_video_sentiments["surprise"],
-		filtered_video_sentiments["anger"],
+	new_row = [filtered_video_sentiments.get("contempt", 0),
+		filtered_video_sentiments.get("happiness", 0),
+		filtered_video_sentiments.get("neutral", 0),
+		filtered_video_sentiments.get("fear", 0),
+		filtered_video_sentiments.get("sadness", 0),
+		filtered_video_sentiments.get("disgust", 0),
+		filtered_video_sentiments.get("surprise", 0),
+		filtered_video_sentiments.get("anger", 0),
 		audio_sentiment]
 	if latest_video_path not in historicals_df.index:
 		historicals_df.loc[latest_video_path] = new_row
