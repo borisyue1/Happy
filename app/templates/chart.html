@@ -61,9 +61,9 @@
                     datasets: [
                   {
                         backgroundColor: "rgba(179,181,198,0.2)",
-          borderColor: "rgba(179,181,198,1)",
-          pointBorderColor: "#fff",
-          pointBackgroundColor: "rgba(179,181,198,1)",
+                        borderColor: "rgba(179,181,198,1)",
+                        pointBorderColor: "#fff",
+                        pointBackgroundColor: "rgba(179,181,198,1)",
 
                         data : [{% for item in values %}
                                   {{item}},
@@ -84,7 +84,8 @@
       showLabelBackdrop: false
     },
     pointLabels: {
-      fontSize: 24
+      fontSize: 24,
+      fontColor: "#000000"
     }
   }, legend: false
 
@@ -127,8 +128,8 @@
     options: {
       title: {
         display: true,
-        fontSize: 18,
-        text: 'Emotion Distribution'
+        fontSize: 26,
+        text: 'Emotion Distribution'  
         
       },
       legend: {
