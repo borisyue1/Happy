@@ -11,7 +11,7 @@ WEBM_PATH = "uploads/*.webm"
 JPEG_PATH = "temp/*.jpg"
 HISTORICALS_PATH = "historicals.csv"
 historicals_df = pd.read_csv(HISTORICALS_PATH, index_col=0)
-
+LABELS = ["Contempt","Happiness","Neutral","Fear","Sadness","Disgust","Surprise","Anger"]
 
 
 @app.route('/')
@@ -19,9 +19,8 @@ historicals_df = pd.read_csv(HISTORICALS_PATH, index_col=0)
 def index():
     return render_template("index.html")
 
-@app.route('/new_entry', methods=["GET", "POST"])
-def new_entry():
-	# try:
+@app.route('/result', methods=["GET", "POST"])
+def result():
 	print("Converting video to jpegs")
 	webm_video_paths = glob2.glob(WEBM_PATH)
 	webm_video_paths = sorted(webm_video_paths)
@@ -39,15 +38,14 @@ def new_entry():
 	    		filtered_video_sentiments[k].append(d[k])
 	mean = lambda numbers: float(sum(numbers)) / max(len(numbers), 1)
 	for category in filtered_video_sentiments:
-		filtered_video_sentiments[category] = mean(filtered_video_sentiments[category])
+		filtered_video_sentiments[category] = int(10 * mean(filtered_video_sentiments[category]))
 
 	print("Getting audio sentiment")
 	audio_sentiment = wav_to_sentiment(WEBM_PATH)
 	print("Video:", filtered_video_sentiments)
 	print("Audio:", audio_sentiment)
-	print(latest_video_path not in historicals_df.index)
-	if latest_video_path not in historicals_df.index:
-		new_row = [filtered_video_sentiments["contempt"],
+
+	new_row = [filtered_video_sentiments["contempt"],
 		filtered_video_sentiments["happiness"],
 		filtered_video_sentiments["neutral"],
 		filtered_video_sentiments["fear"],
@@ -56,19 +54,12 @@ def new_entry():
 		filtered_video_sentiments["surprise"],
 		filtered_video_sentiments["anger"],
 		audio_sentiment]
+	if latest_video_path not in historicals_df.index:
+		
 		historicals_df.loc[latest_video_path] = new_row
-		historicals_df.to_csv(HISTORICALS_PATH, index=False)
+		historicals_df.to_csv(HISTORICALS_PATH)
 
-	return render_template("index.html", video_sentiments=filtered_video_sentiments, audio_sentiment=audio_sentiment)
-
-	# except:
-	# 	return render_template("index.html")
-@app.route('/chart', methods=["GET"])
-def chart():
-    labels = ["Contempt","Happiness","Neutral","Fear","Sadness","Disgust","Surprise","Anger"]
-    values = [1, 10, 2, 5, 7, 5, 5, 5]
-    return render_template('chart.html', values=values, labels=labels)
-
+	return render_template("chart.html", values=new_row[:-1], labels=LABELS)
 
 ALLOWED_EXTENSIONS = ['webm']
 
