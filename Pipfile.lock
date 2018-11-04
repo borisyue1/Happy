@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "687b48ea7c35886f7f23d2c9bf0c109a5e8e2a3f42871a726b836e7631776ad9"
+            "sha256": "c9faca787ee20ce0c5a7a90598c67e0f02c5247a3352e699d3af111f9697693a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -130,6 +130,13 @@
             ],
             "index": "pypi",
             "version": "==0.2.1"
+        },
+        "glob2": {
+            "hashes": [
+                "sha256:f5b0a686ff21f820c4d3f0c4edd216704cea59d79d00fa337e244a2f2ff83ed6"
+            ],
+            "index": "pypi",
+            "version": "==0.6"
         },
         "idna": {
             "hashes": [

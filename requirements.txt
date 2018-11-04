@@ -1,4 +1,21 @@
-flask
-cognitive_faces
-glob2
-pandas
+-i https://pypi.org/simple
+asn1crypto==0.24.0
+certifi==2018.10.15
+cffi==1.11.5; python_version != '3.1.*'
+chardet==3.0.4
+click==7.0; python_version != '3.3.*'
+cognitive-face==1.4.2
+cryptography==2.3.1; python_version != '3.1.*'
+flask-uploads==0.2.1
+flask==1.0.2
+glob2==0.6
+idna==2.7
+itsdangerous==1.1.0; python_version != '3.3.*'
+jinja2==2.10
+markupsafe==1.0
+pycparser==2.19; python_version != '3.1.*'
+pyopenssl==18.0.0
+requests==2.20.0
+six==1.11.0
+urllib3==1.24.1; python_version < '4'
+werkzeug==0.14.1

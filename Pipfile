@@ -8,6 +8,7 @@ flask = "*"
 pyopenssl = "*"
 cognitive-face = "*"
 flask-uploads = "*"
+"glob2" = "*"
 
 [dev-packages]
 
