@@ -7,7 +7,8 @@ WAV_PATH = "temp/temp.wav"
 def webm_to_wav(path):
   from_video_path = path
   audio_ext = "wav"
-  os.system('ffmpeg -y -i {} -f {} -ab 192000 -vn {}'.format(from_video_path, audio_ext, WAV_PATH))
+  #os.system('ffmpeg -y -i {} -f {} -ab 192000 -vn {}'.format(from_video_path, audio_ext, WAV_PATH))
+  os.system('ffmpeg -y -i {} -f {} -ab 16000 -vn {}'.format(from_video_path, audio_ext, WAV_PATH))
 
 def speech_to_text(input_file='../test.wav'):
   with open(input_file, mode='rb') as file:
@@ -24,7 +25,10 @@ def speech_to_text(input_file='../test.wav'):
       response = conn.getresponse()
       text_data = json.loads(response.read().decode("utf-8")) #convert byte array to dictionary
       conn.close()
-      return text_data['DisplayText']
+      if "DisplayText" in text_data:
+          return text_data['DisplayText']
+      else:
+          return ""
   except Exception as e:
       raise Exception("Speech to text error")
 
@@ -38,6 +42,9 @@ def sentiment(text):
     {'id': '1', 'language': 'en', 'text': text}
   ]}
   try:
+      if len(text) == 0:
+          return 0
+
       conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
       conn.request("POST", "/text/analytics/v2.0/sentiment", str(request_body), text_headers)
       response = conn.getresponse()

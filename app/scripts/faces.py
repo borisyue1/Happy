@@ -8,15 +8,20 @@ BASE_URL = 'https://westus.api.cognitive.microsoft.com/face/v1.0/'
 CF.BaseUrl.set(BASE_URL)
 
 def get_frames(path, output_path="app/recordings/", fps=1/2):
-	print("error")
-	# os.system("ffmpeg -y -i {} -vf fps={} {}thumb%04d.jpg -hide_banner".format(path, fps, output_path))
+	#print("error")
+	os.system("ffmpeg -y -i {} -vf fps={} {}thumb%04d.jpg -hide_banner".format(path, fps, output_path))
 
 def get_emotions(path):
 	#Path can either be a link or 
 	"""[{'faceId': '78774c2a-95a3-467e-8261-084a267485c0', 
 	'faceAttributes': {'smile': 1.0, 
-				'emotion': {'surprise': 0.0, 'contempt': 0.0, 'happiness': 1.0, 'neutral': 0.0, 'anger': 0.0, 'sadness': 0.0, 'fear': 0.0, 'disgust': 0.0}}, 'faceRectangle': {'width': 94, 'top': 117, 'height': 94, 'left': 98}}]"""
-	  # Replace with your regional Base URL
-	
+				'emotion': {'surprise': 0.0, 'contempt': 0.0, 'happiness': 0.0, 'neutral': 0.0, 'anger': 0.0, 'sadness': 0.0, 'fear': 0.0, 'disgust': 0.0}}, 'faceRectangle': {'width': 94, 'top': 117, 'height': 94, 'left': 98}}]"""
+	# Replace with your regional Base URL
+	assert os.path.exists(path)
+	print(path)
 	faces = CF.face.detect(path, attributes="emotion")
-	return faces[0]["faceAttributes"]["emotion"]
+	if len(faces) > 0:
+		print(faces)
+		return faces[0]["faceAttributes"]["emotion"]
+	else:
+		return dict()
