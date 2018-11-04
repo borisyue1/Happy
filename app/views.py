@@ -30,14 +30,17 @@ def index():
 
 @app.route('/result', methods=["GET", "POST"])
 def result():
-	print("Converting video to jpegs")
+	app.logger.info("Converting video to jpegs")
 	webm_video_paths = glob2.glob(WEBM_PATH)
 	webm_video_paths = sorted(webm_video_paths)
 	latest_video_path = webm_video_paths[-1]
 	get_frames(latest_video_path, "temp/") 
 
-	print("Getting video sentiment")
+	app.logger.info("Getting video sentiment %s", glob2.glob(JPEG_PATH))
 	video_sentiments = [get_emotions(frame_path) for frame_path in glob2.glob(JPEG_PATH)]
+
+	app.logger.debug(video_sentiments)
+
 	filtered_video_sentiments = {}
 	for d in video_sentiments:
 	    for k in d:
@@ -49,10 +52,10 @@ def result():
 	for category in filtered_video_sentiments:
 		filtered_video_sentiments[category] = int(10 * mean(filtered_video_sentiments[category]))
 
-	print("Getting audio sentiment")
+	app.logger.info("Getting audio sentiment")
 	audio_sentiment = wav_to_sentiment(latest_video_path)
-	print("Video:", filtered_video_sentiments)
-	print("Audio:", audio_sentiment)
+	app.logger.info("Video:", filtered_video_sentiments)
+	app.logger.info("Audio:", audio_sentiment)
 
 	new_row = [filtered_video_sentiments.get("contempt", 0),
 		filtered_video_sentiments.get("happiness", 0),
@@ -68,6 +71,12 @@ def result():
 		historicals_df.to_csv(HISTORICALS_PATH)
 
 	max_feel = np.argmax(new_row)
+
+	app.logger.debug(result_lst)
+
+	# TODO: hacky
+	if max_feel == 8:
+		max_feel = 2
 
 	return render_template("chart.html", values=new_row[:-1], labels=LABELS, result=result_lst[max_feel])
 
