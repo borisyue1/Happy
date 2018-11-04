@@ -9,7 +9,8 @@ import pandas as pd
 WEBM_PATH = "uploads/*.webm"
 JPEG_PATH = "temp/*.jpg"
 HISTORICALS_PATH = "historicals.csv"
-historicals_df = pd.read_csv(HISTORICALS_PATH)
+historicals_df = pd.read_csv(HISTORICALS_PATH, index_col=0)
+
 
 
 @app.route('/')
@@ -43,10 +44,9 @@ def new_entry():
 	audio_sentiment = wav_to_sentiment(WEBM_PATH)
 	print("Video:", filtered_video_sentiments)
 	print("Audio:", audio_sentiment)
-
-	if latest_video_path not in historicals_df.path:
-		new_row = [latest_video_path, 
-		filtered_video_sentiments["contempt"],
+	print(latest_video_path not in historicals_df.index)
+	if latest_video_path not in historicals_df.index:
+		new_row = [filtered_video_sentiments["contempt"],
 		filtered_video_sentiments["happiness"],
 		filtered_video_sentiments["neutral"],
 		filtered_video_sentiments["fear"],
@@ -55,7 +55,7 @@ def new_entry():
 		filtered_video_sentiments["surprise"],
 		filtered_video_sentiments["anger"],
 		audio_sentiment]
-		historicals_df.loc[-1] = new_row
+		historicals_df.loc[latest_video_path] = new_row
 		historicals_df.to_csv(HISTORICALS_PATH, index=False)
 
 	return render_template("index.html", video_sentiments=filtered_video_sentiments, audio_sentiment=audio_sentiment)
