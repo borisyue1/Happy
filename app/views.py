@@ -54,8 +54,8 @@ def result():
 
 	app.logger.info("Getting audio sentiment")
 	audio_sentiment = wav_to_sentiment(latest_video_path)
-	app.logger.info("Video:", filtered_video_sentiments)
-	app.logger.info("Audio:", audio_sentiment)
+	app.logger.info("Video: %s", filtered_video_sentiments)
+	app.logger.info("Audio: %s", audio_sentiment)
 
 	new_row = [filtered_video_sentiments.get("contempt", 0),
 		filtered_video_sentiments.get("happiness", 0),
