@@ -11,7 +11,7 @@ var pauseResBtn = document.querySelector('button#pauseRes');
 var stopBtn = document.querySelector('button#stop');
 
 var videoElement = document.querySelector('video');
-var dataElement = document.querySelector('#data');
+var logElement = document.querySelector('#log');
 var downloadLink = document.querySelector('a#downloadLink');
 
 videoElement.controls = false;
@@ -87,7 +87,7 @@ function onBtnRecordClicked (){
 			};
 
 			mediaRecorder.onstop = function(){
-				log('Stopped  & state = ' + mediaRecorder.state);
+				log('Stopped & state = ' + mediaRecorder.state);
 				
 				var blob = new Blob(chunks, {type: "video/webm"});
 				var videoURL = window.URL.createObjectURL(blob);
@@ -120,7 +120,8 @@ function onBtnRecordClicked (){
 				    contentType: false,
 				    mimeTypes: 'multipart/form-data'
 				}).done(function(msg) {
-				    alert( "Data Saved: " + msg );
+				    log( "Data Saved: " + msg );
+				    window.location.href = "./result";
 				});
 			};
 
@@ -172,7 +173,7 @@ function onPauseResumeClicked(){
 
 
 function log(message){
-	dataElement.innerHTML = dataElement.innerHTML+'<br>'+message ;
+	logElement.innerHTML = logElement.innerHTML+'<br>'+message ;
 }
 
 

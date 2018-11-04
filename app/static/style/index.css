@@ -37,6 +37,10 @@ img {
 	margin-bottom: 20px;
 }
 
+pre {
+    text-align: left;
+}
+
 .video {
 	width: 640px;
 	height: 480px;
