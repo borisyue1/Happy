@@ -11,6 +11,19 @@ Requirements:
 - Microsoft Cognitive_Faces API
 - FFMPEG (brew install ffmpeg)
 
+
+Local Dev
+========
+```
+python dev.py
+```
+
+Production
+=========
+```
+python run.py
+```
+
 About Pipenv
 ===========
 

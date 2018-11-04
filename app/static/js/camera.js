@@ -121,6 +121,7 @@ function onBtnRecordClicked (){
 				    mimeTypes: 'multipart/form-data'
 				}).done(function(msg) {
 				    alert( "Data Saved: " + msg );
+				    window.location.href = "./result";
 				});
 			};
 
