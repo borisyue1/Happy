@@ -65,5 +65,13 @@ def new_entry():
 @app.route('/chart', methods=["GET"])
 def chart():
     labels = ["Contempt","Happiness","Neutral","Fear","Sadness","Disgust","Surprise","Anger"]
-    values = [10,9,8,7,6,4,7,8]
+    values = [1, 10, 2, 5, 7, 5, 5, 5]
     return render_template('chart.html', values=values, labels=labels)
+
+
+
+
+
+
+
+    
