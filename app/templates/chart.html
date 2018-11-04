@@ -60,14 +60,10 @@
                           {% endfor %}],
                     datasets: [
                   {
-                        backgroundColor: "rgba(179,181,198,0.2)",
-                        borderColor: "rgba(179,181,198,1)",
-                        pointBorderColor: "#fff",
-                        pointBackgroundColor: "rgba(179,181,198,1)",
-
-                        data : [{% for item in values %}
-                                  {{item}},
-                                {% endfor %}]
+                    backgroundColor: "rgba(200,0,0,0.2)",
+                    data : [{% for item in values %}
+                              {{item}},
+                            {% endfor %}]
                   }
                   ]
 
