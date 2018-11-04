@@ -6,12 +6,21 @@ import os
 from .scripts.faces import get_emotions, get_frames
 from .scripts.speech_text import wav_to_sentiment
 import pandas as pd
+import numpy as np
 
 WEBM_PATH = "uploads/*.webm"
 JPEG_PATH = "temp/*.jpg"
 HISTORICALS_PATH = "historicals.csv"
 historicals_df = pd.read_csv(HISTORICALS_PATH, index_col=0)
 LABELS = ["Contempt","Happiness","Neutral","Fear","Sadness","Disgust","Surprise","Anger"]
+result_lst = ["contemptuous",
+			   "happy",
+			   "neutral",
+			   "scared" ,
+			   "sad",
+			   "disgusted",
+			   "surprised",
+			   "angry"]
 
 
 @app.route('/')
@@ -59,7 +68,9 @@ def result():
 		historicals_df.loc[latest_video_path] = new_row
 		historicals_df.to_csv(HISTORICALS_PATH)
 
-	return render_template("chart.html", values=new_row[:-1], labels=LABELS)
+	max_feel = np.argmax(new_row)
+
+	return render_template("chart.html", values=new_row[:-1], labels=LABELS, result=result_lst[max_feel])
 
 ALLOWED_EXTENSIONS = ['webm']
 
