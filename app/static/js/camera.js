@@ -88,7 +88,7 @@ function onBtnRecordClicked (){
 
 			mediaRecorder.onstop = function(){
 				log('Stopped & state = ' + mediaRecorder.state);
-				
+
 				var blob = new Blob(chunks, {type: "video/webm"});
 				var videoURL = window.URL.createObjectURL(blob);
 
@@ -153,6 +153,7 @@ function onBtnStopClicked(){
 	recBtn.disabled = false;
 	pauseResBtn.disabled = true;
 	stopBtn.disabled = true;
+	document.getElementById("loader-wrapper").classList.remove("hidden");
 }
 
 function onPauseResumeClicked(){
