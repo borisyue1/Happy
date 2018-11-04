@@ -4,7 +4,7 @@
 // Spec is at http://dvcs.w3.org/hg/dap/raw-file/tip/media-stream-capture/RecordingProposal.html
 
 
-var constraints = {audio: true,video: {  width: { min: 640, ideal: 640, max: 640 },  height: { min: 480, ideal: 480, max: 480 }}};
+var constraints = {audio: true,video: {  width: { min: 320, ideal: 320, max: 640 },  height: { min: 240, ideal: 240, max: 480 }}};
 
 var recBtn = document.querySelector('button#rec');
 var pauseResBtn = document.querySelector('button#pauseRes');
@@ -121,7 +121,6 @@ function onBtnRecordClicked (){
 				    mimeTypes: 'multipart/form-data'
 				}).done(function(msg) {
 				    alert( "Data Saved: " + msg );
-				    window.location.href = "./result";
 				});
 			};
 
@@ -156,17 +155,14 @@ function onBtnStopClicked(){
 }
 
 function onPauseResumeClicked(){
-
-
-	
-	if(pauseResBtn.textContent === "<i class=\"fa fa-pause\"></i> Pause"){
+	if(pauseResBtn.textContent === "Pause"){
 		console.log("pause");
-		pauseResBtn.textContent = "<i class=\"fa fa-play\"></i> Resume";
+		pauseResBtn.textContent = "Resume";
 		mediaRecorder.pause();
 		stopBtn.disabled = true;
 	}else{
 		console.log("resume");
-		pauseResBtn.textContent = "<i class=\"fa fa-pause\"></i> Pause";
+		pauseResBtn.textContent = "Pause";
 		mediaRecorder.resume();
 		stopBtn.disabled = false;
 	}
