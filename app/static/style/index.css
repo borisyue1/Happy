@@ -15,3 +15,20 @@ h1 {
 	font-size: 50px;
 	font-style: ;
 }
+
+.navbar-nav {
+    float:none;
+    margin:0 auto;
+    text-align: center;
+    font-family: Montserrat,Open Sans,Helvetica Neue,Arial;
+    font-size: 1.0em;
+    font-weight: 600;
+}
+
+.navbar-firstnav>li {
+    display: inline-block;
+    float:none;
+    font-family: Montserrat,Open Sans,Helvetica Neue,Arial;
+    font-size: 1.0em;
+    font-weight: 600;
+}
